@@ -1,3 +1,6 @@
+
+
+
 var playState = {
 
     create: function () {
@@ -15,32 +18,29 @@ var playState = {
       // Create the physics bodies
       game.physics.p2.enable(game.player);
       game.player.body.setCircle(16);
-
       game.player.anchor.setTo(0.5, 0.5);
       game.player.scale.setTo(1, 1);
       game.player.animations.add('run');
       game.player.animations.play('run', 10, true);
     },
-
     update: function (){
 
-      if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-          game.player.x -= 4;
-          game.player.rotation = -1.5;
-      } else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-          game.player.x += 4;
-          game.player.rotation = 1.5;
-      }else if (game.player.angle === -171.9) {
-          game.player.x += 14;
-          game.player.rotation = -.7;
-      }  if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-          game.player.y -= 4;
-          game.player.rotation = 0;
-      } else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-          game.player.y += 4;
-          game.player.rotation = -3;
-      }
-    },
+         if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+             game.player.x -= 4;
+             game.player.angle += 1;
+         } else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+             game.player.x += 4;
+             game.player.angle += 1;
+         }
+
+         if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+             game.player.y -= 4;
+             game.player.angle += 1;
+         } else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+             game.player.y += 4;
+             game.player.angle += 1;
+         }
+       },
 
     render: function () {
       game.debug.spriteInfo(game.player, 20, 32);
