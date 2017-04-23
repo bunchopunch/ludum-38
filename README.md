@@ -1,5 +1,10 @@
 <div align="center"><img src="https://github.com/DallOner/Phaser-Boilerplate/blob/master/assets/img/boilerplate-logo.png"></div>
 
+## To install and Run:
+
+- `npm install` and `npm start`
+- Access the game at [http://localhost:2865/](http://localhost:2865/)
+
 ## Description
 Game Development Tool to create Html5 games using [Phaser](http://phaser.io/) Framework. Useful tool for those new to the world of Phaser. Speed up your work with a simple download!
 
