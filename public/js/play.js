@@ -17,18 +17,19 @@ var playState = {
 
       if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
           game.player.x -= 4;
-          game.player.angle += 1;
+          game.player.rotation = -1.5;
       } else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
           game.player.x += 4;
-          game.player.angle += 1;
-      }
-
-      if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+          game.player.rotation = 1.5;
+      }else if (game.player.angle === -171.9) {
+          game.player.x += 4;
+          game.player.rotation = -.7;
+      }  if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
           game.player.y -= 4;
-          game.player.angle += 1;
+          game.player.rotation = 0;
       } else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
           game.player.y += 4;
-          game.player.angle += 1;
+          game.player.rotation = -3;
       }
     },
 
