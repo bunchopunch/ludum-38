@@ -5,6 +5,7 @@ var playState = {
 
     create: function () {
         game.physics.startSystem(Phaser.Physics.P2JS);
+        game.physics.p2.setImpactEvents(true);
         game.physics.p2.restitution = 0.9;
 
         // Place the sprites on the playing field.
@@ -15,8 +16,13 @@ var playState = {
             monsterBlue64 = game.add.sprite(435, 250, 'mob-blue-64');
         game.player = game.add.sprite(325, 280, 'player');
 
+        var playerCollisionGroup = game.physics.p2.createCollisionGroup();
+        var mobCollisionGroup = game.physics.p2.createCollisionGroup();
+
         // Create the physics bodies
         game.physics.p2.enable(game.player);
+        game.player.body.fixedRotation = true
+        // Collisions
         game.player.body.setCircle(16);
 
         game.player.anchor.setTo(0.5, 0.5);
@@ -27,18 +33,18 @@ var playState = {
 
         if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
             game.player.body.moveLeft(200)
-            //game.player.angle += 1;
+            game.player.angle = 270;
         } else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
             game.player.body.moveRight(200)
-            //game.player.angle += 1;
+            game.player.angle = 90;
         }
 
         if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
             game.player.body.moveUp(200)
-            //game.player.angle += 1;
+            game.player.angle = 0;
         } else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
             game.player.body.moveDown(200)
-            //game.player.angle += 1;
+            game.player.angle = 180;
         }
     },
 
