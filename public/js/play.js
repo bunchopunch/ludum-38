@@ -4,6 +4,7 @@
 var playState = {
 
     create: function () {
+
         game.physics.startSystem(Phaser.Physics.P2JS);
         game.physics.p2.setImpactEvents(true);
         game.physics.p2.restitution = 0.9;
@@ -12,8 +13,9 @@ var playState = {
         var background = game.add.tileSprite(0, 0, 640, 480, 'starfield'),
             monsterLeft = game.add.tileSprite(0, 0, 128, 600, 'monster-left'),
             monsterRight = game.add.tileSprite(513, 0, 128, 600, 'monster-right'),
-            monsterPink64 = game.add.sprite(150, 250, 'mob-pink-64'),
-            monsterBlue64 = game.add.sprite(435, 250, 'mob-blue-64');
+
+            monsterPink64 = game.add.sprite('mob-pink-64'),
+            monsterBlue64 = game.add.sprite('mob-blue-64');
         game.player = game.add.sprite(325, 280, 'player');
 
         var playerCollisionGroup = game.physics.p2.createCollisionGroup();
@@ -27,6 +29,9 @@ var playState = {
 
         game.player.anchor.setTo(0.5, 0.5);
         game.player.scale.setTo(1, 1);
+
+        var timer = 0;
+        var total = 0;
     },
     update: function (){
         game.player.body.setZeroVelocity();
@@ -46,6 +51,9 @@ var playState = {
             game.player.body.moveDown(200)
             game.player.angle = 180;
         }
+
+        releaseMonsterBlue64()
+        releaseMonsterPink64()
     },
 
     render: function () {
@@ -53,3 +61,39 @@ var playState = {
     }
 
 };
+
+function releaseMonsterPink64() {
+    var mummy = game.add.sprite(-(Math.random() * 800), game.world.randomY, 'mob-pink-64');
+
+    mummy.scale.setTo(2, 2);
+
+    //  If you prefer to work in degrees rather than radians then you can use Phaser.Sprite.angle
+    //  otherwise use Phaser.Sprite.rotation
+    mummy.angle = game.rnd.angle();
+
+    mummy.animations.add('walk');
+    mummy.animations.play('walk', 20, true);
+
+    game.add.tween(mummy).to({ x: game.width + (1600 + mummy.x) }, 20000, Phaser.Easing.Linear.None, true);
+
+    // total++;
+    timer = game.time.now + 100;
+}
+
+function releaseMonsterBlue64() {
+    var mummy = game.add.sprite(-(Math.random() * 800), game.world.randomY, 'mob-blue-64');
+
+    mummy.scale.setTo(2, 2);
+
+    //  If you prefer to work in degrees rather than radians then you can use Phaser.Sprite.angle
+    //  otherwise use Phaser.Sprite.rotation
+    mummy.angle = game.rnd.angle();
+
+    mummy.animations.add('walk');
+    mummy.animations.play('walk', 20, true);
+
+    game.add.tween(mummy).to({ x: game.width + (1600 + mummy.x) }, 20000, Phaser.Easing.Linear.None, true);
+
+    // total++;
+    timer = game.time.now + 100;
+}
