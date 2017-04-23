@@ -1,11 +1,12 @@
 var playState = {
 
     create: function () {
-      var background = game.add.tileSprite(0, 0, 640, 480, 'starfield');
-      var monsterLeft = game.add.tileSprite(0, 0, 128, 600, 'monster-left');
-      var monsterRight = game.add.tileSprite(513, 0, 128, 600, 'monster-right');
-      var monsterPink64 = game.add.image(150, 250, 'mob-pink-64');
-      var monsterBlue64 = game.add.image(435, 250, 'mob-blue-64');
+      // Place the sprites on the playing field.
+      var background = game.add.tileSprite(0, 0, 640, 480, 'starfield'),
+          monsterLeft = game.add.tileSprite(0, 0, 128, 600, 'monster-left'),
+          monsterRight = game.add.tileSprite(513, 0, 128, 600, 'monster-right'),
+          monsterPink64 = game.add.image(150, 250, 'mob-pink-64'),
+          monsterBlue64 = game.add.image(435, 250, 'mob-blue-64');
       game.player = game.add.image(325, 280, 'player');
 
       game.player.anchor.setTo(0.5, 0.5);
