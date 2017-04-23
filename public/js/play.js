@@ -19,14 +19,18 @@ var playState = {
 
       if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
           player.x -= 4;
+          player.angle += 1;
       } else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
           player.x += 4;
+          player.angle += 1;
       }
 
       if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
           player.y -= 4;
+          player.angle += 1;
       } else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
           player.y += 4;
+          player.angle += 1;
       }
     },
 
