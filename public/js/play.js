@@ -1,6 +1,7 @@
 var playState = {
 
     create: function () {
+      var background = game.add.tileSprite(0, 0, 640, 480, 'starfield');
       var monsterLeft = game.add.tileSprite(0, 0, 128, 600, 'monster-left');
       var monsterRight = game.add.tileSprite(513, 0, 128, 600, 'monster-right');
       var monsterPink64 = game.add.image(150, 250, 'mob-pink-64');
