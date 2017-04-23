@@ -31,7 +31,7 @@ var playState = {
           game.player.x += 4;
           game.player.rotation = 1.5;
       }else if (game.player.angle === -171.9) {
-          game.player.x += 4;
+          game.player.x += 14;
           game.player.rotation = -.7;
       }  if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
           game.player.y -= 4;
