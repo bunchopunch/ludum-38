@@ -1,5 +1,3 @@
-var player;
-
 var playState = {
 
     create: function () {
@@ -7,35 +5,35 @@ var playState = {
       var monsterRight = game.add.tileSprite(513, 0, 128, 600, 'monster-right');
       var monsterPink64 = game.add.image(150, 250, 'mob-pink-64');
       var monsterBlue64 = game.add.image(435, 250, 'mob-blue-64');
-      player = game.add.image(325, 280, 'player');
+      game.player = game.add.image(325, 280, 'player');
 
-      player.anchor.setTo(0.5, 0.5);
-      player.scale.setTo(1, 1);
-      player.animations.add('run');
-      player.animations.play('run', 10, true);
+      game.player.anchor.setTo(0.5, 0.5);
+      game.player.scale.setTo(1, 1);
+      game.player.animations.add('run');
+      game.player.animations.play('run', 10, true);
     },
 
     update: function (){
 
       if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-          player.x -= 4;
-          player.rotation = 3;
+          game.player.x -= 4;
+          game.player.angle += 1;
       } else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-          player.x += 4;
-          player.rotation = -.5;
+          game.player.x += 4;
+          game.player.angle += 1;
       }
 
       if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-          player.y -= 4;
-          player.rotation = -1.5;
+          game.player.y -= 4;
+          game.player.angle += 1;
       } else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-          player.y += 4;
-          player.rotation = 1;
+          game.player.y += 4;
+          game.player.angle += 1;
       }
     },
 
     render: function () {
-      game.debug.spriteInfo(player, 20, 32);
+      game.debug.spriteInfo(game.player, 20, 32);
     }
 
 };
