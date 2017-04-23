@@ -13,8 +13,10 @@ var loadState = {
         //Load your images, spritesheets, bitmaps...
         game.load.image('boiler-logo', 'assets/img/boilerplate-logo.png');
         game.load.image('player', 'assets/img/ship.png');
-        game.load.image('monster-left', 'assets/img/monster-left.png');
-        game.load.image('monster-right', 'assets/img/monster-right.png');
+        game.load.image('monster-left', 'assets/img/monster-pink.png');
+        game.load.image('monster-right', 'assets/img/monster-blue.png');
+        game.load.image('mob-blue-64', 'assets/img/mob-blue-64.png');
+        game.load.image('mob-pink-64', 'assets/img/mob-pink-64.png');
 
         //Load your sounds, efx, music...
         //Example: game.load.audio('rockas', 'assets/snd/rockas.wav');
