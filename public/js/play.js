@@ -30,8 +30,12 @@ var playState = {
         game.player.anchor.setTo(0.5, 0.5);
         game.player.scale.setTo(1, 1);
 
-        var timer = 0;
         var total = 0;
+
+        spawnTimer = game.time.create(false);
+        spawnTimer.loop(2000, spawnMob, this);
+        spawnTimer.start();
+
     },
     update: function (){
         game.player.body.setZeroVelocity();
@@ -51,9 +55,6 @@ var playState = {
             game.player.body.moveDown(200)
             game.player.angle = 180;
         }
-
-        releaseMonsterBlue64()
-        releaseMonsterPink64()
     },
 
     render: function () {
@@ -62,38 +63,21 @@ var playState = {
 
 };
 
-function releaseMonsterPink64() {
-    var mummy = game.add.sprite(-(Math.random() * 800), game.world.randomY, 'mob-pink-64');
-
-    mummy.scale.setTo(2, 2);
-
-    //  If you prefer to work in degrees rather than radians then you can use Phaser.Sprite.angle
-    //  otherwise use Phaser.Sprite.rotation
-    mummy.angle = game.rnd.angle();
-
-    mummy.animations.add('walk');
-    mummy.animations.play('walk', 20, true);
-
-    game.add.tween(mummy).to({ x: game.width + (1600 + mummy.x) }, 20000, Phaser.Easing.Linear.None, true);
-
-    // total++;
-    timer = game.time.now + 100;
+function spawnMob() {
+    spawnMonster(-32, 'mob-pink-64', 1, .001);
+    spawnMonster(400, 'mob-blue-64', 1, -.5);
 }
 
-function releaseMonsterBlue64() {
-    var mummy = game.add.sprite(-(Math.random() * 800), game.world.randomY, 'mob-blue-64');
-
-    mummy.scale.setTo(2, 2);
-
+function spawnMonster(spawnX, spawnSprite, spawnScale, spawnVelocity) {
+    var mob = game.add.sprite(spawnX, game.world.randomY, spawnSprite);
+    mob.scale.setTo(spawnScale, spawnScale);
     //  If you prefer to work in degrees rather than radians then you can use Phaser.Sprite.angle
     //  otherwise use Phaser.Sprite.rotation
-    mummy.angle = game.rnd.angle();
-
-    mummy.animations.add('walk');
-    mummy.animations.play('walk', 20, true);
-
-    game.add.tween(mummy).to({ x: game.width + (1600 + mummy.x) }, 20000, Phaser.Easing.Linear.None, true);
-
+    // mob.angle = game.rnd.angle();
+    game.physics.p2.enable(mob);
+    mob.body.fixedRotation = true
+    mob.body.velocity.x = spawnVelocity;
+    // game.add.tween(mob).to({ x: game.width + (1600 + mob.x) }, 20000, Phaser.Easing.Linear.None, true);
     // total++;
-    timer = game.time.now + 100;
+    //timer = game.time.now + 100;
 }
