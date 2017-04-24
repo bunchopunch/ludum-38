@@ -1,6 +1,3 @@
-
-
-
 var playState = {
 
     create: function () {
@@ -24,6 +21,7 @@ var playState = {
         // Create the physics bodies
         game.physics.p2.enable(game.player);
         game.player.body.fixedRotation = true
+
         // Collisions
         game.player.body.setCircle(16);
 
@@ -33,7 +31,7 @@ var playState = {
         var total = 0;
 
         spawnTimer = game.time.create(false);
-        spawnTimer.loop(2000, spawnMob, this);
+        spawnTimer.loop(2000, spawnMobs, this);
         spawnTimer.start();
 
     },
@@ -63,12 +61,12 @@ var playState = {
 
 };
 
-function spawnMob() {
-    spawnMonster(-32, 'mob-pink-64', 1, .001);
-    spawnMonster(400, 'mob-blue-64', 1, -.5);
+function spawnMobs() {
+    spawnMob(-32, 'mob-pink-64', 1, .001);
+    spawnMob(400, 'mob-blue-64', 1, -.5);
 }
 
-function spawnMonster(spawnX, spawnSprite, spawnScale, spawnVelocity) {
+function spawnMob(spawnX, spawnSprite, spawnScale, spawnVelocity) {
     var mob = game.add.sprite(spawnX, game.world.randomY, spawnSprite);
     mob.scale.setTo(spawnScale, spawnScale);
     //  If you prefer to work in degrees rather than radians then you can use Phaser.Sprite.angle
