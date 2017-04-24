@@ -51,9 +51,20 @@ var playState = {
         // -- Create player
         game.player = game.playerGroup.create(325, 280, 'player')
         game.player.anchor.setTo(0.5, 0.5);
+        game.player.tracking = true;
         game.player.body.collides([game.bossCollisionGroup]);
         game.player.body.fixedRotation = true
         game.player.body.setCircle(16);
+        game.player.rotation = -1.6;
+
+/*
+        // -- Create enemy
+        game.player = game.playerGroup.create(325, 280, 'player')
+        game.player.anchor.setTo(0.5, 0.5);
+        game.player.body.collides([game.bossCollisionGroup]);
+        game.player.body.fixedRotation = true
+        game.player.body.setCircle(16);
+*/
 
         // -- Enemy spawn timer
         spawnTimer = game.time.create(false);
@@ -65,18 +76,18 @@ var playState = {
 
         if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
             game.player.body.moveLeft(200)
-            game.player.angle = 270;
+            game.player.rotation = Math.atan2(game.player.body.velocity.y, game.player.body.velocity.x)
         } else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
             game.player.body.moveRight(200)
-            game.player.angle = 90;
+            game.player.rotation = Math.atan2(game.player.body.velocity.y, game.player.body.velocity.x)
         }
 
         if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
             game.player.body.moveUp(200)
-            game.player.angle = 0;
+            game.player.rotation = Math.atan2(game.player.body.velocity.y, game.player.body.velocity.x)
         } else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
             game.player.body.moveDown(200)
-            game.player.angle = 180;
+            game.player.rotation = Math.atan2(game.player.body.velocity.y, game.player.body.velocity.x)
         }
     },
 
@@ -111,3 +122,13 @@ function spawnMob(spawnX, spawnSprite, spawnScale, spawnVelocity) {
     // total++;
     //timer = game.time.now + 100;
 }
+
+var Bullet = function (game, key) {
+    Phaser.Sprite.call(this, game, 0, 0, key);
+    this.anchor.set(0.5);
+    this.checkWorldBounds = true;
+    this.outOfBoundsKill = true;
+    this.exists = false;
+    this.tracking = false;
+    this.scaleSpeed = 0;
+};
