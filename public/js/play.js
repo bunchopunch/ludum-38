@@ -6,6 +6,11 @@ var playState = {
         game.physics.p2.setImpactEvents(true);
         game.physics.p2.restitution = 0.9;
 
+        // Score and score display
+        game.score = 0;
+        var scoreTitle = game.add.text(300, 300, 'aＳ Ｃ Ｏ Ｒ Ｅ', { font: '12px Arial', fill: '#fff' });
+        var scoreValue = game.add.text(300, 300, game.score, { font: '12px Arial', fill: '#fff' });
+
         // Place the sprites on the playing field.
         var background = game.add.tileSprite(0, 0, 640, 480, 'starfield'),
             monsterLeft = game.add.tileSprite(0, 0, 128, 600, 'monster-left'),
