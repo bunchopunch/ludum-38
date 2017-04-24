@@ -8,10 +8,10 @@ var loadState = {
         In this case of loading, only text is placed...
         */
 
-        var loadingLabel = game.add.text(80, 150, 'loading...', {font: '30px Courier', fill: '#fff'});
+        var loadingLabel = game.add.text(80, 150, 'ＬＯＡＤＩＮＧ...', {font: '30px Courier', fill: '#fff'});
 
         //Load your images, spritesheets, bitmaps...
-        game.load.image('boiler-logo', 'assets/img/boilerplate-logo.png');
+        game.load.image('logo', 'assets/img/logo.png');
         game.load.image('player', 'assets/img/ship.png');
         game.load.image('monster-left', 'assets/img/monster-pink.png');
         game.load.image('starfield', 'assets/img/starfield.png');

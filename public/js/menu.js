@@ -1,16 +1,19 @@
 var menuState = {
 
     create: function () {
-        var menuLabel = game.add.text(80, 150, 'Menu', {font: '30px Courier', fill: '#fff'});
-        var playText = game.add.text(250, 300, 'Start', {font: '30px Courier', fill: '#fff'});
-
-        game.add.image(95, 150, 'boiler-logo');
-
+        // Add plugins
         game.add.plugin(Phaser.Plugin.Debug);
-        game.add.plugin(Phaser.Plugin.Inspector);
+        // game.add.plugin(Phaser.Plugin.Inspector);
 
-        playText.inputEnabled = true;
-        playText.events.onInputDown.add(play, this);
+        // Set up menu graphics
+        game.stage.backgroundColor = "#fff";
+        var logo      = game.add.image(75, 100, 'logo');
+        var startText = game.add.text(245, 350, 'ＳＴＡＲＴ', {font: '30px Courier', fontWeight: 'bold', fill: '#a6386f'});
+        // To add a pointer cursor we'll need a transparent sprite
+
+        // Events
+        startText.inputEnabled = true;
+        startText.events.onInputDown.add(play, this);
 
         function play(item) {
             game.state.start('play');

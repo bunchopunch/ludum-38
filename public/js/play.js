@@ -1,44 +1,64 @@
 var playState = {
 
     create: function () {
+        // -- Set score and other values
+        game.score = 0;
 
+        // -- Create the playing field
+        var background = game.add.tileSprite(0, 0, 640, 480, 'starfield'),
+            scoreTitle = game.add.text(275, 440, 'Ｓ Ｃ Ｏ Ｒ Ｅ', { font: '12px Arial', fill: '#fff' }),
+            scoreValue = game.add.text(275, 458, game.score, { font: '12px Arial', fill: '#fff' });
+
+        // -- Physics and collisions
         game.physics.startSystem(Phaser.Physics.P2JS);
         game.physics.p2.setImpactEvents(true);
         game.physics.p2.restitution = 0.9;
 
-        // Score and score display
-        game.score = 0;
-        var scoreTitle = game.add.text(300, 300, 'aＳ Ｃ Ｏ Ｒ Ｅ', { font: '12px Arial', fill: '#fff' });
-        var scoreValue = game.add.text(300, 300, game.score, { font: '12px Arial', fill: '#fff' });
+        // -- Groups
+        game.mobCollisionGroup    = game.physics.p2.createCollisionGroup();
+        game.bossCollisionGroup   = game.physics.p2.createCollisionGroup();
+        game.playerCollisionGroup = game.physics.p2.createCollisionGroup();
 
-        // Place the sprites on the playing field.
-        var background = game.add.tileSprite(0, 0, 640, 480, 'starfield'),
-            monsterLeft = game.add.tileSprite(0, 0, 128, 600, 'monster-left'),
-            monsterRight = game.add.tileSprite(513, 0, 128, 600, 'monster-right'),
+        // game.allGroup    = game.add.group();
+        game.mobGroup    = game.add.group();
 
-            monsterPink64 = game.add.sprite('mob-pink-64'),
-            monsterBlue64 = game.add.sprite('mob-blue-64');
-        game.player = game.add.sprite(325, 280, 'player');
+        game.bossGroup   = game.add.group();
+        game.bossGroup.enableBody = true;
+        game.bossGroup.physicsBodyType = Phaser.Physics.P2JS;
 
-        var playerCollisionGroup = game.physics.p2.createCollisionGroup();
-        var mobCollisionGroup = game.physics.p2.createCollisionGroup();
+        game.playerGroup = game.add.group();
+        game.playerGroup.enableBody = true;
+        game.playerGroup.physicsBodyType = Phaser.Physics.P2JS;
 
-        // Create the physics bodies
-        game.physics.p2.enable(game.player);
+        // -- Create boss walls
+        var bossLeft  = game.add.tileSprite(64, 256, 128, 600, 'monster-left'),
+            bossRight = game.add.tileSprite(575, 256, 128, 600, 'monster-right');
+
+        game.bossGroup.add(bossLeft);
+        bossLeft.body.static = true;
+        bossLeft.body.collideWorldBounds = false;
+        bossLeft.body.setCollisionGroup(game.bossCollisionGroup);
+        // bossLeft.body.collides([game.playerCollisionGroup]);
+        bossLeft.body.setRectangle(64, 600);
+
+        game.bossGroup.add(bossRight);
+        bossRight.body.static = true;
+        bossRight.body.collideWorldBounds = false;
+        bossRight.body.setCollisionGroup(game.bossCollisionGroup);
+        // bossRight.body.collides([game.playerCollisionGroup]);
+        bossRight.body.setRectangle(12, 600, 0, 0);
+
+        // -- Create player
+        game.player = game.playerGroup.create(325, 280, 'player')
+        game.player.anchor.setTo(0.5, 0.5);
+        game.player.body.collides([game.bossCollisionGroup]);
         game.player.body.fixedRotation = true
-
-        // Collisions
         game.player.body.setCircle(16);
 
-        game.player.anchor.setTo(0.5, 0.5);
-        game.player.scale.setTo(1, 1);
-
-        var total = 0;
-
+        // -- Enemy spawn timer
         spawnTimer = game.time.create(false);
         spawnTimer.loop(2000, spawnMobs, this);
         spawnTimer.start();
-
     },
     update: function (){
         game.player.body.setZeroVelocity();
@@ -67,20 +87,27 @@ var playState = {
 };
 
 function spawnMobs() {
-    spawnMob(-32, 'mob-pink-64', 1, .001);
-    spawnMob(400, 'mob-blue-64', 1, -.5);
+    spawnMob(32, 'mob-pink-64', 1, 1);
+    spawnMob(600, 'mob-blue-64', 1, 1);
 }
 
 function spawnMob(spawnX, spawnSprite, spawnScale, spawnVelocity) {
     var mob = game.add.sprite(spawnX, game.world.randomY, spawnSprite);
-    mob.scale.setTo(spawnScale, spawnScale);
+    //mob.scale.setTo(spawnScale, spawnScale);
     //  If you prefer to work in degrees rather than radians then you can use Phaser.Sprite.angle
     //  otherwise use Phaser.Sprite.rotation
     // mob.angle = game.rnd.angle();
     game.physics.p2.enable(mob);
+    mob.enableBody = true;
     mob.body.fixedRotation = true
-    mob.body.velocity.x = spawnVelocity;
-    // game.add.tween(mob).to({ x: game.width + (1600 + mob.x) }, 20000, Phaser.Easing.Linear.None, true);
+    // mob.body.velocity.x = spawnVelocity;
+    mob.body.setCollisionGroup(game.mobCollisionGroup);
+
+    //  Pandas will collide against themselves and the player
+    //  If you don't set this they'll not collide with anything.
+    //  The first parameter is either an array or a single collision group.
+    mob.body.collides(game.playerCollisionGroup);
+    game.add.tween(mob).to({ x: game.width + (1600 + mob.x) }, 20000, Phaser.Easing.Linear.None, true);
     // total++;
     //timer = game.time.now + 100;
 }
